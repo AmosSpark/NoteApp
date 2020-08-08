@@ -119,11 +119,10 @@ exports.createNote = (req, res) => {
           });
       })
       .catch((err) => {
-        // dir will be created if it dosent't exist
         // response
-        res.writeHead(201, { "Content-type": "application/json" });
-        res.end(
-          `{"status": "success", "message": "Directory ${pathname}  and file ${pathname}.json created" }`
+        res.writeHead(500, { "Content-type": "application/json" });
+        return res.end(
+          `{"status": "fail", "error": "Unable to read directory", "${err}"}`
         );
       });
   });
