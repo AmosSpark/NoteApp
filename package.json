@@ -1,0 +1,17 @@
+{
+  "name": "noteApp API",
+  "version": "1.0.0",
+  "description": "A note taking app API built with node core modules",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "http-server",
+    "api"
+  ],
+  "author": "amosspark",
+  "license": "ISC"
+}
