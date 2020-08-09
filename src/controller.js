@@ -12,31 +12,32 @@ const url = require("url");
 exports.createDirWithFile = (req, res) => {
   const { pathname, query } = url.parse(req.url, true);
   // create dir
-  fs.mkdir(`${__dirname}/dir/${query.file}`, {}).then(() => {
-    // create file
-    fs.writeFile(`${__dirname}/dir/${query.file}/${query.file}.json`, `[]`)
-      .then(() => {
-        // response
-        res.writeHead(201, { "Content-type": "application/json" });
-        res.end(
-          `{"status": "success", "message": "Directory ${query.file}  with file ${query.file}.json created" }`
-        );
-      })
-      .catch((err) => {
-        // response
-        res.writeHead(500, { "Content-type": "application/json" });
-        return res.end(
-          `{"status": "fail", "error": "Unable to create file", "${err}"}`
-        );
-      })
-      .catch((err) => {
-        // response
-        res.writeHead(500, { "Content-type": "application/json" });
-        return res.end(
-          `{"status": "fail", "error": "Unable to create directory", "${err}"}`
-        );
-      });
-  });
+  fs.mkdir(`${__dirname}/dir/${query.file}`, {})
+    .then(() => {
+      // create file
+      fs.writeFile(`${__dirname}/dir/${query.file}/${query.file}.json`, `[]`)
+        .then(() => {
+          // response
+          res.writeHead(201, { "Content-type": "application/json" });
+          res.end(
+            `{"status": "success", "message": "Directory ${query.file}  with file ${query.file}.json created" }`
+          );
+        })
+        .catch((err) => {
+          // response
+          res.writeHead(500, { "Content-type": "application/json" });
+          return res.end(
+            `{"status": "fail", "error": "Unable to create file", "${err}"}`
+          );
+        });
+    })
+    .catch((err) => {
+      // response
+      res.writeHead(400, { "Content-type": "application/json" });
+      return res.end(
+        `{"status": "fail", "error": "Unable to create directory", "${err}"}`
+      );
+    });
 };
 
 /*
