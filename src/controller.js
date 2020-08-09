@@ -10,16 +10,16 @@ const url = require("url");
  */
 
 exports.createDirWithFile = (req, res) => {
-  const { pathname } = url.parse(req.url, true);
+  const { pathname, query } = url.parse(req.url, true);
   // create dir
-  fs.mkdir(`${__dirname}/dir/${pathname}`, {}).then(() => {
+  fs.mkdir(`${__dirname}/dir/${query.file}`, {}).then(() => {
     // create file
-    fs.writeFile(`${__dirname}/dir/${pathname}/${pathname}.json`, `[]`)
+    fs.writeFile(`${__dirname}/dir/${query.file}/${query.file}.json`, `[]`)
       .then(() => {
         // response
         res.writeHead(201, { "Content-type": "application/json" });
         res.end(
-          `{"status": "success", "message": "Directory ${pathname}  with file ${pathname}.json created" }`
+          `{"status": "success", "message": "Directory ${query.file}  with file ${query.file}.json created" }`
         );
       })
       .catch((err) => {

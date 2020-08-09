@@ -6,9 +6,10 @@ const controller = require("./controller");
 module.exports = http.createServer((req, res) => {
   const { pathname, query } = url.parse(req.url, true);
 
-  if (pathname && req.method === "POST") {
+  if (req.url === `/create-dir?file=${query.file}` && req.method === "POST") {
     // create dirs for notes
     controller.createDirWithFile(req, res);
+  } else if (pathname && query && req.method === "POST") {
     // create note
     controller.createNote(req, res);
   } else if (pathname === "/directories" && req.method === "GET") {
